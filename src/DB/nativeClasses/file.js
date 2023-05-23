@@ -16,14 +16,5 @@ export default class File{
         const secs=duration%60;
         return mins+":"+secs;
     }
-    setName(name){
-        return new File(name, this.title, this.durationInSeconds, this.type, this.cover, this.author);
-    }
-    setTitle(title){
-        return new File(this.name, title, this.durationInSeconds, this.type, this.cover, this.author);
-    }
-    setAuthor(author){
-        return new File(this.name, this.title, this.durationInSeconds, this.type, this.cover, author);
-    }
 
 }

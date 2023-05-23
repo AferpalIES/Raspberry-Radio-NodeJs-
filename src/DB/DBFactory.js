@@ -1,11 +1,12 @@
 import conn from "./mysqlDB.js";
+import albumMysqlDao from "./MYSQLDB/albumMysqlDao.js";
 import fileMysqlDao from "./MYSQLDB/fileMysqlDao.js";
 
 const FILE_DB_OPTIONS={
     "1": fileMysqlDao
 }
 const ALBUM_DB_OPTIONS={
-    "1":conn
+    "1":albumMysqlDao
 }
 const ALBUM_FILE_DB_OPTIONS={
     "1":conn
