@@ -15,15 +15,18 @@ export default class fileMysqlDao{
         conds+=file.author?`File.author='${file.author}' AND `:"";
         conds+=file.durationInSeconds?`File.duration=${file.durationInSeconds}' AND `:"";
         conds+=file.cover?`File.cover='${file.cover}' AND `:"";
-        conds+=file.id?`FIle.id=${file.id} AND `:"";
+        conds+=file.id?`File.id=${file.id} AND `:"";
         conds=conds.substring(0, conds.length-4);
         return conds;
     }
-    getFiles(fileParam){
-        const query= `Select * from File WHERE `+this.getConditions(fileParam);
-        conn.query(query, (err, result, fields)=>{
-            if(err) throw err;
-            console.log(result);
+    getFiles(fileParam, {numberOfFiles}){
+        return new Promise((resolve, reject)=>{
+            const query= `Select * from File WHERE `+this.getConditions(fileParam);
+            conn.query(query, (err, result, fields)=>{
+            if(err) reject(err);
+            resolve(result.length>numberOfFiles?result.slice(0, numberOfFiles):result);
         });
+        })
     }
+
 }
