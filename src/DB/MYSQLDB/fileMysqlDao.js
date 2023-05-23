@@ -7,7 +7,7 @@ export default class fileMysqlDao{
         this.db=conn;
     }
     getConditions(fileParam){
-        let conds="";
+        let conds="WHERE ";
         const file=fileParam;
         conds+=file.name?`File.name='${file.name}' AND `:"";
         conds+=file.title?`File.title='${file.title}' AND `:"";
@@ -16,12 +16,12 @@ export default class fileMysqlDao{
         conds+=file.durationInSeconds?`File.duration=${file.durationInSeconds}' AND `:"";
         conds+=file.cover?`File.cover='${file.cover}' AND `:"";
         conds+=file.id?`File.id=${file.id} AND `:"";
-        conds=conds.substring(0, conds.length-4);
+        conds=conds=="WHERE "? "":conds.substring(0, conds.length-4);
         return conds;
     }
     getFiles(fileParam, {numberOfFiles}){
         return new Promise((resolve, reject)=>{
-            const query= `Select * from File WHERE `+this.getConditions(fileParam);
+            const query= `Select * from File `+this.getConditions(fileParam);
             conn.query(query, (err, result, fields)=>{
             if(err) reject(err);
             resolve(result.length>numberOfFiles?result.slice(0, numberOfFiles):result);
