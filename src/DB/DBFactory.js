@@ -1,5 +1,5 @@
-import conn from "./mysqlDB";
-import fileMysqlDao from "./MYSQLDB/fileMysqlDao";
+import conn from "./mysqlDB.js";
+import fileMysqlDao from "./MYSQLDB/fileMysqlDao.js";
 
 const FILE_DB_OPTIONS={
     "1": fileMysqlDao
@@ -11,12 +11,12 @@ const ALBUM_FILE_DB_OPTIONS={
     "1":conn
 }
 export function createFileDao(dbType){
-    return FILE_DB_OPTIONS[dbType];
+    return new FILE_DB_OPTIONS[dbType]();
 }
 
 export function createALbumDao(dbType){
-    return ALBUM_DB_OPTIONS[dbType]
+    return new ALBUM_DB_OPTIONS[dbType]();
 }
 export function createAlbumFileDao(dbType){
-    return ALBUM_FILE_DB_OPTIONS[dbType];
+    return new ALBUM_FILE_DB_OPTIONS[dbType]();
 }

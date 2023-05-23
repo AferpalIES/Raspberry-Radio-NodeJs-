@@ -19,19 +19,22 @@ export default class fileMysqlDao{
         conds=conds=="WHERE "? "":conds.substring(0, conds.length-4);
         return conds;
     }
-    getFiles(fileParam, {numberOfFiles}){
+    get(fileParam){
+        const numberOfFiles=2;
         return new Promise((resolve, reject)=>{
             const query= `Select * from File `+this.getConditions(fileParam);
             conn.query(query, (err, result, fields)=>{
             if(err) reject(err);
+            result=result.map(row=>{
+                return new File(row);
+            })
             resolve(result.length>numberOfFiles?result.slice(0, numberOfFiles):result);
         });
         })
     }
-    setFile(fileParam){
+    set(fileParam){
         const {name, title, durationInSeconds, type, cover, author}=fileParam;
         const query=`INSERT INTO File (name, title, duration, type, cover, author) VALUES ('${name}', '${title}', ${durationInSeconds}, '${type}', '${cover}', '${author}')`;
         conn.query(query);
     }
-
 }
