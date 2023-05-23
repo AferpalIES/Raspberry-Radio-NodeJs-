@@ -28,5 +28,10 @@ export default class fileMysqlDao{
         });
         })
     }
+    setFile(fileParam){
+        const {name, title, durationInSeconds, type, cover, author}=fileParam;
+        const query=`INSERT INTO File (name, title, duration, type, cover, author) VALUES ('${name}', '${title}', ${durationInSeconds}, '${type}', '${cover}', '${author}')`;
+        conn.query(query);
+    }
 
 }
