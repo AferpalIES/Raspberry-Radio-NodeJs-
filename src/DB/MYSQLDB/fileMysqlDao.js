@@ -1,4 +1,4 @@
-import conn from "../mysqlDB.js";
+import conn from "./mysqlDB.js";
 import File from "../nativeClasses/file.js";
 
 
@@ -36,5 +36,14 @@ export default class fileMysqlDao{
         const {name, title, durationInSeconds, type, cover, author}=fileParam;
         const query=`INSERT INTO File (name, title, duration, type, cover, author) VALUES ('${name}', '${title}', ${durationInSeconds}, '${type}', '${cover}', '${author}')`;
         conn.query(query);
+    }
+    delete(fileParam){
+        const conds=this.getConditions(fileParam);
+        if(conds=="") throw new Error('Missing file to delete');
+        const query= `DELETE FROM File `+conds;
+        conn.query(query);
+    }
+    update(){
+        
     }
 }
