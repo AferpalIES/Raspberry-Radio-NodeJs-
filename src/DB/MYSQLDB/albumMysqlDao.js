@@ -9,11 +9,20 @@ export default class albumMysqlDao{
     getConditions(albumParam){
         let conds="WHERE ";
         const album=albumParam;
-        conds+=album.name?`Album.name='${album.name}' AND `:"";
-        conds+=album.description?`Album.title='${album.title}' AND `:"";
-        conds+=album.cover?`Album.cover='${album.cover}' AND `:"";
-        conds+=album.id?`Album.id=${album.id} AND `:"";
+        conds+=album.name?`name='${album.name}' AND `:"";
+        conds+=album.description?`title='${album.title}' AND `:"";
+        conds+=album.cover?`cover='${album.cover}' AND `:"";
+        conds+=album.id?`id=${album.id} AND `:"";
         conds=conds=="WHERE "? "":conds.substring(0, conds.length-4);
+        return conds;
+    }
+
+    getUpdateFileds(album){
+        let conds="SET ";
+        conds+=album.name?`name='${album.name}', `:"";
+        conds+=album.description?`title='${album.title}', `:"";
+        conds+=album.cover?`cover='${album.cover}', `:"";
+        conds=conds=="WHERE "? "":conds.substring(0, conds.length-2);
         return conds;
     }
     get(albumParam){
@@ -38,6 +47,11 @@ export default class albumMysqlDao{
         const conds=this.getConditions(albumParam);
         if(conds=="")throw new Error("Missing albumParam at delete");
         const query=`DELETE FROM Album `+conds;
+        this.db.query(query);
+    }
+    async update(album, oldAlbum){
+        const oldAlbumID= await this.get(oldAlbum);
+        const query=`UPDATE Album ${this.getUpdateFileds(album)} WHERE id=${oldAlbumID[0].id}`;
         this.db.query(query);
     }
 }

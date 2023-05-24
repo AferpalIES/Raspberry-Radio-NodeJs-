@@ -8,12 +8,22 @@ export default class AlbumFileMysqlDao{
     }
     getConditions(albumFile){
         let conds="WHERE ";
-        conds+=albumFile.album?`albumfile.album=${albumFile.album} AND `:"";
-        conds+=albumFile.file?`albumfile.file=${albumFile.file} AND `:"";
-        conds+=albumFile.id?`albumfile.id=${albumFile.id} AND `:"";
+        conds+=albumFile.album?`album=${albumFile.album} AND `:"";
+        conds+=albumFile.file?`file=${albumFile.file} AND `:"";
+        conds+=albumFile.track?`track=${albumFile.track} AND `:"";
+        conds+=albumFile.id?`id=${albumFile.id} AND `:"";
         conds=conds=="WHERE "? "":conds.substring(0, conds.length-4);
         return conds;
     }
+    getUpdateFileds(albumFile){
+        let conds= "SET ";
+        conds+=albumFile.album?`album=${albumFile.album}, `:"";
+        conds+=albumFile.file?`file=${albumFile.file}, `:"";
+        conds+=albumFile.track?`track=${albumFile.track}, `:"";
+        conds=conds=="WHERE "? "":conds.substring(0, conds.length-2);
+        return conds;
+    }
+
     get(albumFileParam){
         return new Promise((resolve, reject)=>{
             const query= `Select * from AlbumFile `+this.getConditions(albumFileParam);
@@ -35,5 +45,10 @@ export default class AlbumFileMysqlDao{
         const query=`DELETE FROM albumfile `+conds;
         this.db.query(query);
 
+    }
+    async update(albumFile, oldAlbumFile){
+        const oldAlbumFileID=await this.get(oldAlbumFile);
+        const query=`UPDATE albumfile ${this.getUpdateFileds(albumFile)} WHERE id=${oldAlbumFileID[0].id}`;
+        this.db.query(query);
     }
 }
