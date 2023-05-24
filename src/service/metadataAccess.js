@@ -1,7 +1,7 @@
 import jsmediatags from "jsmediatags"
 import {Buffer} from "node:buffer"
 
-function accessImage(path){
+export function accessImage(path){
   return new Promise((resolve) =>{
     jsmediatags.read(path, {
       onSuccess: function(metadata){

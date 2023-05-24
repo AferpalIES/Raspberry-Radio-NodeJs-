@@ -1,10 +1,7 @@
-const { exec } = require('child_process');
-function playMusicFile(filePath){
-    exec (`mpg123 ${filePath}`, (err, stdout, stderr) => {
-        if (err) {
-            console.log("No se ha podido ejecutar")
-        }
-    })
-}
+import Sound from "node-mpg123";
 
-export default playMusicFile
+export function playMusicFile(path){
+    let music = new Sound(path)
+    music.play()
+    return music
+}
