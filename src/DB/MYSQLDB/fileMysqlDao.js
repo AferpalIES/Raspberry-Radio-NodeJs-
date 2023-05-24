@@ -9,14 +9,25 @@ export default class fileMysqlDao{
     getConditions(fileParam){
         let conds="WHERE ";
         const file=fileParam;
-        conds+=file.name?`File.name='${file.name}' AND `:"";
-        conds+=file.title?`File.title='${file.title}' AND `:"";
-        conds+=file.type?`File.type='${file.type}' AND `:"";
-        conds+=file.author?`File.author='${file.author}' AND `:"";
-        conds+=file.durationInSeconds?`File.duration=${file.durationInSeconds}' AND `:"";
-        conds+=file.cover?`File.cover='${file.cover}' AND `:"";
-        conds+=file.id?`File.id=${file.id} AND `:"";
+        conds+=file.name?`name='${file.name}' AND `:"";
+        conds+=file.title?`title='${file.title}' AND `:"";
+        conds+=file.type?`type='${file.type}' AND `:"";
+        conds+=file.author?`author='${file.author}' AND `:"";
+        conds+=file.durationInSeconds?`duration=${file.durationInSeconds}' AND `:"";
+        conds+=file.cover?`cover='${file.cover}' AND `:"";
+        conds+=file.id?`id=${file.id} AND `:"";
         conds=conds=="WHERE "? "":conds.substring(0, conds.length-4);
+        return conds;
+    }
+    getUpdateFileds(file){
+        let conds= "SET ";
+        conds+=file.name?`name='${file.name}', `:"";
+        conds+=file.title?`title='${file.title}', `:"";
+        conds+=file.type?`yype='${file.type}', `:"";
+        conds+=file.author?`author='${file.author}', `:"";
+        conds+=file.durationInSeconds?`duration=${file.durationInSeconds}', `:"";
+        conds+=file.cover?`cover='${file.cover}', `:"";
+        conds=conds=="WHERE "? "":conds.substring(0, conds.length-2);
         return conds;
     }
     get(fileParam){
@@ -43,7 +54,10 @@ export default class fileMysqlDao{
         const query= `DELETE FROM File `+conds;
         conn.query(query);
     }
-    update(){
-        
+    async update(file, oldFile){
+        const oldFileID= await this.get(oldFile);
+
+        const query=`UPDATE File ${this.getUpdateFileds(file)} WHERE id=${oldFileID[0].id}`;
+        this.db.query(query);
     }
 }
