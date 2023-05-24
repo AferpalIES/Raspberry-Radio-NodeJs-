@@ -1,4 +1,4 @@
-import conn from "../mysqlDB.js";
+import conn from "./mysqlDB.js";
 import Album from "../nativeClasses/album.js";
 
 
@@ -32,6 +32,12 @@ export default class albumMysqlDao{
     set(albumParam){
         const {name, cover, description}=albumParam;
         const query=`INSERT INTO Album (name, cover, description) VALUES ('${name}', '${cover}', '${description}')`;
+        this.db.query(query);
+    }
+    delete(albumParam){
+        const conds=this.getConditions(albumParam);
+        if(conds=="")throw new Error("Missing albumParam at delete");
+        const query=`DELETE FROM Album `+conds;
         this.db.query(query);
     }
 }
