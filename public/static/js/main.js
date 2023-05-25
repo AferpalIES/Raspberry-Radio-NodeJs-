@@ -15,14 +15,25 @@ class FileDiv{
         this.file=file;
     }
     getHtml(){
-        return `<div class="FileDiv" >
-            ${this.img.getHtml()}
-            <div class="fileDescription">
-                <h1><b>${this.file.title}</b></h1>
-                <h2>${this.file.author}</h2>
-            </div>
-            <p>${this.file.durationInMinutes}</p>
-        </div>`
+        let elm=document.createElement('div');
+        elm.classList.add('FileDiv'); elm.id=this.file.id;
+        elm.innerHTML=`${this.img.getHtml()}
+        <div class="fileDescription">
+            <h1><b>${this.file.title}</b></h1>
+            <h2>${this.file.author}</h2>
+        </div>
+        <p>${this.file.durationInMinutes}</p>`;
+        elm.addEventListener('click', (e)=>{
+            const {id}=this.file;
+            fetch('/play/'+id, {
+                method: 'POST', 
+                body: "", 
+                headers:{
+                  'Content-Type': 'application/json'
+                }
+              }).then(res => res.json()).then(res2=>console.log(res2));
+        })
+        return elm;
     }
 }
 
@@ -33,6 +44,6 @@ const root=document.getElementById('root');
 fetch('/API/getFiles').then(res=>res.json()).then(res=>{
     for(let i=0; i<res.length; i++){
         const fileDiv= new FileDiv(res[i]);
-        root.innerHTML+=fileDiv.getHtml();
+        root.appendChild(fileDiv.getHtml());
     }
 });
