@@ -13,7 +13,7 @@ export default class fileMysqlDao{
         conds+=file.title?`title='${file.title}' AND `:"";
         conds+=file.type?`type='${file.type}' AND `:"";
         conds+=file.author?`author='${file.author}' AND `:"";
-        conds+=file.durationInSeconds?`duration=${file.durationInSeconds}' AND `:"";
+        conds+=file.durationInSeconds?`duration=${file.durationInSeconds} AND `:"";
         conds+=file.cover?`cover='${file.cover}' AND `:"";
         conds+=file.id?`id=${file.id} AND `:"";
         conds=conds=="WHERE "? "":conds.substring(0, conds.length-4);
@@ -23,7 +23,7 @@ export default class fileMysqlDao{
         let conds= "SET ";
         conds+=file.name?`name='${file.name}', `:"";
         conds+=file.title?`title='${file.title}', `:"";
-        conds+=file.type?`yype='${file.type}', `:"";
+        conds+=file.type?`type='${file.type}', `:"";
         conds+=file.author?`author='${file.author}', `:"";
         conds+=file.durationInSeconds?`duration=${file.durationInSeconds}', `:"";
         conds+=file.cover?`cover='${file.cover}', `:"";
@@ -31,11 +31,11 @@ export default class fileMysqlDao{
         return conds;
     }
     get(fileParam){
-        const numberOfFiles=2;
+        const numberOfFiles=5;
         return new Promise((resolve, reject)=>{
             const query= `Select * from File `+this.getConditions(fileParam);
             conn.query(query, (err, result, fields)=>{
-            if(err) reject(err);
+            if(err) throw err;
             result=result.map(row=>{
                 return new File(row);
             })
@@ -56,7 +56,6 @@ export default class fileMysqlDao{
     }
     async update(file, oldFile){
         const oldFileID= await this.get(oldFile);
-
         const query=`UPDATE File ${this.getUpdateFileds(file)} WHERE id=${oldFileID[0].id}`;
         this.db.query(query);
     }
