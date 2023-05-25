@@ -10,7 +10,7 @@ export default class albumMysqlDao{
         let conds="WHERE ";
         const album=albumParam;
         conds+=album.name?`name='${album.name}' AND `:"";
-        conds+=album.description?`title='${album.title}' AND `:"";
+        conds+=album.description?`description='${album.description}' AND `:"";
         conds+=album.cover?`cover='${album.cover}' AND `:"";
         conds+=album.id?`id=${album.id} AND `:"";
         conds=conds=="WHERE "? "":conds.substring(0, conds.length-4);
@@ -20,7 +20,7 @@ export default class albumMysqlDao{
     getUpdateFileds(album){
         let conds="SET ";
         conds+=album.name?`name='${album.name}', `:"";
-        conds+=album.description?`title='${album.title}', `:"";
+        conds+=album.description?`description='${album.description}', `:"";
         conds+=album.cover?`cover='${album.cover}', `:"";
         conds=conds=="WHERE "? "":conds.substring(0, conds.length-2);
         return conds;
@@ -30,10 +30,11 @@ export default class albumMysqlDao{
         return new Promise((resolve, reject)=>{
             const query= `Select * from Album `+this.getConditions(albumParam);
             this.db.query(query, (err, result, fields)=>{
-            if(err) reject(err);
-            result=result.map(row=>{
-                return new Album(row);
-            })
+            if(err) throw err;
+                result=result.map(row=>{
+                    return new Album(row);
+                })
+            
             resolve(result.length>numberOfFiles?result.slice(0, numberOfFiles):result);
         });
         })
