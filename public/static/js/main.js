@@ -9,16 +9,6 @@ class ImageDiv{
 
 }
 
-class MainSection{
-    constructor(){
-
-    }
-    getHtml(){
-        
-    }
-
-}
-
 class FileDiv{
     constructor(file){
         this.img=new ImageDiv('small', file.cover);
@@ -34,24 +24,15 @@ class FileDiv{
             <p>${this.file.durationInMinutes}</p>
         </div>`
     }
-
-
 }
 
-const file={
-    title:"Buleria",
-    author:"David Bisbal",
-    durationInMinutes: "3:12",
-    cover:"img"
-}
-const file2={
-    title:"Ay, Carmela",
-    author:"Manuel Azaña",
-    durationInMinutes:"2:43",
-    cover:"Diagrama_Radio.png"
-}
-const filediv= new FileDiv(file);
-const filediv2= new FileDiv(file2);
+
 const root=document.getElementById('root');
-root.innerHTML+=filediv.getHtml();
-root.innerHTML+=filediv2.getHtml();
+
+
+fetch('/API/getFiles').then(res=>res.json()).then(res=>{
+    for(let i=0; i<res.length; i++){
+        const fileDiv= new FileDiv(res[i]);
+        root.innerHTML+=fileDiv.getHtml();
+    }
+});

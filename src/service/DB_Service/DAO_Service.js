@@ -1,6 +1,6 @@
 import { createFileDao, createALbumDao, createAlbumFileDao } from "../../DB/DBFactory.js";
 
-export class DAO_DB_Service{
+export default class DAO_DB_Service{
     static fileDao= createFileDao(1);
     static albumDao=createALbumDao(1);
     static albumFileDao= createAlbumFileDao(1);
