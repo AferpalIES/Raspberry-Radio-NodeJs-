@@ -1,7 +1,29 @@
-import Sound from "node-mpg123";
+import { MpgPlayer } from "mpg123";
+
+let player = new MpgPlayer()
 
 export function playMusicFile(path){
-    let music = new Sound(path)
-    music.play()
-    return music
+    player.play(path)
+}
+
+export function toggleMusicFile(){
+    player.pause()
+}
+
+export function stopMusicFile(){
+    player.close()
+}
+
+export function setVolume(volume){
+    player.volume(volume)
+}
+
+export function setProgress(progress){
+    player.seek(progress)
+}
+
+export function convertSecondstoProgress(seconds){
+    let duration = player.length
+    let progress = seconds/duration
+    return progress
 }

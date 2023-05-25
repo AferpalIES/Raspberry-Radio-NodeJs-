@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/AferpalIES/Raspberry-Radio-NodeJs-#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "jsmediatags": "^3.9.7",
+    "mpg123": "^0.2.3"
   }
 }
