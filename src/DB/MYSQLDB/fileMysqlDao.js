@@ -31,7 +31,7 @@ export default class fileMysqlDao{
         return conds;
     }
     get(fileParam){
-        const numberOfFiles=5;
+        const numberOfFiles=50;
         return new Promise((resolve, reject)=>{
             const query= `Select * from File `+this.getConditions(fileParam);
             conn.query(query, (err, result, fields)=>{
@@ -45,7 +45,8 @@ export default class fileMysqlDao{
     }
     set(fileParam){
         const {name, title, durationInSeconds, type, cover, author}=fileParam;
-        const query=`INSERT INTO File (name, title, duration, type, cover, author) VALUES ('${name}', '${title}', ${durationInSeconds}, '${type}', '${cover}', '${author}')`;
+        console.log(cover);
+        const query=`INSERT INTO File (name, title, duration, type, cover, author) VALUES ('${name}', '${title}', ${durationInSeconds}, '${type}', '${cover.base64String}', '${author}')`;
         conn.query(query);
     }
     delete(fileParam){
