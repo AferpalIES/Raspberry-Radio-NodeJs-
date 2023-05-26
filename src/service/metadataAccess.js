@@ -23,3 +23,13 @@ export function accessImage(path){
     })
   })
 }
+
+export function accessMetadata(path){
+  return new Promise((resolve) =>{
+    jsmediatags.read(path, {
+      onSuccess: function(metadata){
+        resolve(metadata.tags)
+      }
+    })
+  })
+}
