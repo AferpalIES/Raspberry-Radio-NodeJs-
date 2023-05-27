@@ -12,4 +12,8 @@ musicPlayerRouter.post('/:id', async (req, res)=>{
     playMusicFile(_dirname+"/"+process.env.musicDirectory+file[0].fullName);
 })
 
+musicPlayerRouter.get("/play", (req, res)=>{
+  
+})
+
 export default musicPlayerRouter;
