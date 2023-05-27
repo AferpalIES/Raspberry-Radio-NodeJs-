@@ -1,7 +1,6 @@
 import conn from "./mysqlDB.js";
 import File from "../nativeClasses/file.js";
 
-
 export default class fileMysqlDao{
     constructor(){
         this.db=conn;

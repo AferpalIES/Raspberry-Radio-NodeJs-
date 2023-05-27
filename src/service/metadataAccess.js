@@ -1,5 +1,4 @@
 import jsmediatags from "jsmediatags"
-import {Buffer} from "node:buffer"
 import { getAudioDurationInSeconds } from "get-audio-duration/dist/es6/index.js";
 
 export function accessImage(path){
@@ -27,7 +26,7 @@ export async function accessMetadata(path){
     jsmediatags.read(path, {
       onSuccess: async function(metadata){
         let duration = getAudioDurationInSeconds(path)
-        metadata.tags.duration = duration
+        metadata.tags.duration = duration;
         resolve(metadata.tags)
       }
     })
