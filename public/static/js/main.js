@@ -1,17 +1,18 @@
 class ImageDiv{
-    constructor(size, url){
+    constructor(size, url, type){
         this.size=size=="big"?'100px':'50px';
         this.url=url;
+        this.imgType=type;
     }
     getHtml(){
-        return `<img src=${this.url} alt=${"imgAlt"} style="width:${this.size}; height:${this.size}">`;
+        return `<img src="data:image/${this.imgType}; base64, ${this.url}" alt=${"imgAlt"} style="width:${this.size}; height:${this.size}">`;
     }
 
 }
 
 class FileDiv{
     constructor(file){
-        this.img=new ImageDiv('small', file.cover);
+        this.img=new ImageDiv('small', file.cover, file.cover.type);
         this.file=file;
     }
     getHtml(){
