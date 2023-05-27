@@ -55,12 +55,12 @@ class PlayButton{
 
 
 
-const songList=document.getElementById('songList');
+const root=document.getElementById('root');
 
 
 fetch('/API/getFiles').then(res=>res.json()).then(res=>{
     for(let i=0; i<res.length; i++){
         const fileDiv= new FileDiv(res[i]);
-        songList.appendChild(fileDiv.getHtml());
+        root.appendChild(fileDiv.getHtml());
     }
 });
