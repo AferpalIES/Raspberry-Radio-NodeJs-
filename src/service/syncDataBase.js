@@ -11,7 +11,6 @@ export default async function syncDataBase(){
         const fileObject= await accessMetadata(path+"/"+file);
         fileObject.cover=await accessImage(path+"/"+file);
         const file2=new File(fileObject);
-        //console.log(file2);
         DAO_DB_Service.setFile(file2);
     })
 

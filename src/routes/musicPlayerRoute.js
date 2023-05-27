@@ -7,10 +7,10 @@ import { config } from "dotenv";
 config();
 const musicPlayerRouter=Router();
 
-musicPlayerRouter.post('/:id', async (req, res)=>{
+/*musicPlayerRouter.post('/:id', async (req, res)=>{
   const file = await DAO_DB_Service.getFiles(new File({id:req.params.id}));
     playMusicFile(_dirname+"/"+process.env.musicDirectory+file[0].fullName);
-})
+})*/
 
 musicPlayerRouter.get("/play", (req, res)=>{
   
