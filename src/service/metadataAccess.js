@@ -22,13 +22,12 @@ export function accessImage(path){
   })
 }
 
-export function accessMetadata(path){
+export async function accessMetadata(path){
   return new Promise((resolve) =>{
     jsmediatags.read(path, {
       onSuccess: async function(metadata){
-        metadata.tags.duration = await getAudioDurationInSeconds(path);
-        metadata.tags.author=metadata.tags.artist??"Unknown";
-        metadata.tags.type=metadata.type=="ID3"?"mp3":"m4a";
+        let duration = getAudioDurationInSeconds(path)
+        metadata.tags.duration = duration
         resolve(metadata.tags)
       }
     })
