@@ -1,5 +1,6 @@
 import jsmediatags from "jsmediatags"
 import {Buffer} from "node:buffer"
+import { sep } from "node:path";
 import { getAudioDurationInSeconds } from "get-audio-duration/dist/es6/index.js";
 
 export function accessImage(path){

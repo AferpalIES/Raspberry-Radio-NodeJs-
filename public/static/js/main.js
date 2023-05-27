@@ -1,3 +1,5 @@
+
+
 class ImageDiv{
     constructor(size, url, type){
         this.size=size=="big"?'100px':'50px';
@@ -37,6 +39,20 @@ class FileDiv{
         return elm;
     }
 }
+
+class PlayButton{
+    constructor(){}
+    getHtml(){
+        let button = document.createElement("img");
+        button.setAttribute("src", `../assets/play.svg`)
+        button.classList.add("playPauseButton")
+        button.addEventListener("click", (e)=>{
+            fetch("play/pause")
+        })
+    }
+}
+
+
 
 
 const root=document.getElementById('root');
