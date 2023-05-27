@@ -8,8 +8,9 @@ config();
 const musicPlayerRouter=Router();
 
 musicPlayerRouter.post('/:id', async (req, res)=>{
+  console.log('has dado bn');
   const file = await DAO_DB_Service.getFiles(new File({id:req.params.id}));
-    playMusicFile(_dirname+"/"+process.env.musicDirectory+file[0].fullName);
+  playMusicFile(_dirname+"/"+process.env.musicDirectory+file[0].fullName);
 })
 
 musicPlayerRouter.get("/play", (req, res)=>{
