@@ -39,10 +39,13 @@ async function normaliceTags(metadata, path){
         "MP4":"m4a"
       }
       !metadata.tags.artist? metadata.tags.artist = "unknown":""
-      metadata.tags.author = metadata.tags.artist
+      metadata.tags.author = metadata.tags.artist;
+      let name = path.split(sep).at(-1);
+      metadata.tags.name=name.substring(0, name.lastIndexOf('.'));
+      console.log(metadata);
       if (!metadata.tags.title){
         let fileName = path.split(sep).at(-1);
-              let splitName = fileName.substring(0, fileName.lastIndexOf('.'));
+        let splitName = fileName.substring(0, fileName.lastIndexOf('.'));
         metadata.tags.title = splitName;
       }
       let duration = await getAudioDurationInSeconds(path)
