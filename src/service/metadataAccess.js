@@ -25,6 +25,18 @@ export async function accessMetadata(path){
   return new Promise((resolve) =>{
     jsmediatags.read(path, {
       onSuccess: async function(metadata){
+        !metadata.tags.artist? metadata.tags.artist = "unknown":""
+        metadata.tags.author = metadata.tags.artist
+        if (!metadata.tags.title){
+          let splitPath = path.split(sep)
+          let fileName = splitPath[splitPath.length - 1]
+          let splitName = fileName.split(".")
+          let title = ""
+          for (let i = 0; i<splitName.length - 1; i++){
+            i>0?title += `.${splitName[i]}`:title += `${splitName[i]}`
+          }
+          metadata.tags.title = title
+        }
         let duration = getAudioDurationInSeconds(path)
         metadata.tags.duration = duration;
         resolve(metadata.tags)
