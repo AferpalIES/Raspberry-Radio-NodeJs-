@@ -1,3 +1,5 @@
+
+
 class ImageDiv{
     constructor(size, url, type){
         this.size=size=="big"?'100px':'50px';
@@ -38,13 +40,27 @@ class FileDiv{
     }
 }
 
+class PlayButton{
+    constructor(){}
+    getHtml(){
+        let button = document.createElement("img");
+        button.setAttribute("src", `../assets/play.svg`)
+        button.classList.add("playPauseButton")
+        button.addEventListener("click", (e)=>{
+            fetch("play/pause")
+        })
+    }
+}
 
-const root=document.getElementById('root');
+
+
+
+const songList=document.getElementById('songList');
 
 
 fetch('/API/getFiles').then(res=>res.json()).then(res=>{
     for(let i=0; i<res.length; i++){
         const fileDiv= new FileDiv(res[i]);
-        root.appendChild(fileDiv.getHtml());
+        songList.appendChild(fileDiv.getHtml());
     }
 });
