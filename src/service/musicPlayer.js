@@ -1,4 +1,4 @@
-/*import { MpgPlayer } from "mpg123";
+import { MpgPlayer } from "mpg123";
 
 let player = new MpgPlayer()
 
@@ -27,4 +27,3 @@ export function convertSecondstoProgress(seconds){
     let progress = seconds/duration
     return progress
 }
-*/

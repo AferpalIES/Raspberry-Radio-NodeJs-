@@ -1,11 +1,12 @@
 class ImageDiv{
     constructor(size, url, type){
         this.size=size=="big"?'100px':'50px';
-        this.url=url;
+        this.url=url=="not found"?null:url;
         this.imgType=type;
+        this.src=this.url?`data:image/${this.imgType}; base64, ${this.url}`:"./static/assets/default_cover.png";
     }
     getHtml(){
-        return `<img src="data:image/${this.imgType}; base64, ${this.url}" alt=${"imgAlt"} style="width:${this.size}; height:${this.size}">`;
+        return `<img src="${this.src}" alt=${"imgAlt"} style="width:${this.size}; height:${this.size}">`;
     }
 
 }
