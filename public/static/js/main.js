@@ -1,5 +1,3 @@
-
-
 class ImageDiv{
     constructor(size, url, type){
         this.size=size=="big"?'100px':'50px';
@@ -45,11 +43,14 @@ class PlayButton{
     constructor(){}
     getHtml(){
         let button = document.createElement("img");
-        button.setAttribute("src", `../assets/play.svg`)
+        button.setAttribute("src", "../assets/play.svg")
         button.classList.add("playPauseButton")
-        button.addEventListener("click", (e)=>{
+        /*button.addEventListener("click", (e)=>{
             fetch("play/pause")
-        })
+            let images = ["../assets/play.svg", "../assets/pause.svg"]
+            e.target.setAttribute("src", images[i%images.length])
+            i++
+        })*/
     }
 }
 
@@ -57,6 +58,7 @@ class PlayButton{
 
 
 const root=document.getElementById('root');
+//let i = 1
 
 
 fetch('/API/getFiles').then(res=>res.json()).then(res=>{
