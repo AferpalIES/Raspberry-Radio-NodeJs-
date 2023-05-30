@@ -29,6 +29,7 @@ export default class AlbumFileMysqlDao{
             const query= `Select * from albumFile `+this.getConditions(albumFileParam);
             this.db.query(query, (err, result)=>{
                 if(err) throw new Error("Error at getting fileAlbum");
+                result= result? result.map(res=>new AlbumFile(res)):new AlbumFile({});
                 resolve(result);
             });
         })

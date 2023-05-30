@@ -58,7 +58,6 @@ class PlayButton{
 
 
 const root=document.getElementById('root');
-//let i = 1
 
 
 fetch('/API/getFiles').then(res=>res.json()).then(res=>{

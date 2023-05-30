@@ -13,7 +13,7 @@ musicPlayerRouter.post('/:id', async (req, res)=>{
     playMusicFile(_dirname+sep+process.env.musicDirectory+file[0].fullName);
 })
 
-musicPlayerRouter.get("/play", (req, res)=>{
+musicPlayerRouter.get("/pause", (req, res)=>{
   
 })
 
