@@ -42,14 +42,27 @@ class FileDiv{
 class PlayButton{
     constructor(){
         this.playingState=true;
+        this.button=document.createElement("img")
+        this.buttonref=null;
+        this.srcStates={
+            "on":"./static/assets/play.svg",
+            "off":"./static/assets/pause.svg"
+        }
     }
     setPlayingState(newState){
         this.playingState=newState;
+        this.buttonref.setAttribute("src", this.srcStates[newState?"on":"off"]);
+
+    }
+    setButtonRef(btnref){
+        this.buttonref=btnref;
     }
     getHtml(){
         let button = document.createElement("img");
-        button.setAttribute("src", "../assets/play.svg")
+        button.setAttribute("id","playbtn")
+        button.setAttribute("src", "./static/assets/play.svg")
         button.classList.add("playPauseButton")
+        button.onload=()=>{(this.setButtonRef(document.getElementById("playbtn")))};
         button.addEventListener("click", (e)=>{
             this.setPlayingState(!this.playingState);
             switch(this.playingState){

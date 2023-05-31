@@ -13,14 +13,15 @@ musicPlayerRouter.post('/:id', async (req, res)=>{
     playMusicFile(_dirname+sep+process.env.musicDirectory+file[0].fullName);
 })
 
-musicPlayerRouter.get("/pause", (req, res)=>{
-  console.log("pause");
+musicPlayerRouter.get("/stop", (req, res)=>{
   toggleMusicFile();
 })
 
 musicPlayerRouter.get("/resume", (req, res)=>{
-  console.log("resume");
   toggleMusicFile();
+})
+musicPlayerRouter.get('/kill', ()=>{
+  stopMusicFile()
 })
 
 export default musicPlayerRouter;
