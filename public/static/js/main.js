@@ -40,17 +40,29 @@ class FileDiv{
 }
 
 class PlayButton{
-    constructor(){}
+    constructor(){
+        this.playingState=true;
+    }
+    setPlayingState(newState){
+        this.playingState=newState;
+    }
     getHtml(){
         let button = document.createElement("img");
         button.setAttribute("src", "../assets/play.svg")
         button.classList.add("playPauseButton")
-        /*button.addEventListener("click", (e)=>{
-            fetch("play/pause")
-            let images = ["../assets/play.svg", "../assets/pause.svg"]
-            e.target.setAttribute("src", images[i%images.length])
-            i++
-        })*/
+        button.addEventListener("click", (e)=>{
+            this.setPlayingState(!this.playingState);
+            switch(this.playingState){
+                case(true):
+                fetch('/play/resume');
+                break;
+                case(false):
+                fetch('/play/stop');
+                break;
+            }
+        })
+
+        return button;
     }
 }
 
@@ -66,3 +78,4 @@ fetch('/API/getFiles').then(res=>res.json()).then(res=>{
         root.appendChild(fileDiv.getHtml());
     }
 });
+root.appendChild(new PlayButton().getHtml());
