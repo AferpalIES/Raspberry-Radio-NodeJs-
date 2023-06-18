@@ -2,8 +2,9 @@ import { MpgPlayer } from "mpg123";
 
 let player = new MpgPlayer()
 
+
 export function playMusicFile(path){
-    console.log(path)
+    console.log(path);
     player.play(path)
 }
 
