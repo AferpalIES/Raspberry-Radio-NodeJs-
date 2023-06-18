@@ -5,9 +5,9 @@
 }
 
 .FileDiv{
-    width: 50%;
+    width: 90%;
     height: 60px;
-    background-color: blueviolet;
+    background-color: rgba(143, 47, 233, 0.555);
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -15,6 +15,7 @@
     margin: auto;
     margin-top: 50px;
     border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px rgb(0, 217, 255);
 
 }
 .FileDiv img{
@@ -24,10 +25,13 @@
 .FileDiv .fileDescription{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 70%;
     height: 100%;
     margin-left: 5%;
     justify-content: space-evenly;
+}
+body{
+    background-color: rgb(94, 94, 94);
 }
 .FileDiv .fileDescription h1{
     font-size: medium;
@@ -38,4 +42,36 @@
 }
 .FileDiv .p{
     justify-self:  flex-end;
+}
+
+.fileSection{
+    width: 65%;
+    border: 1px solid green;
+    float: right;
+}
+
+.playPauseButton{
+    width: 50px;
+    background-color: rgba(29, 143, 163, 0.767);
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 5px 5px white;
+    height: 50px;
+    padding: 10px;
+}
+
+.musicBar{
+    width: 95%;
+    position: fixed;
+    bottom: 0;
+    background-color: rgba(0, 255, 255, 0.397);
+    border: 7px solid aquamarine;
+    border-radius: 10px;
+    right: 50%;
+    transform: translate(50%, -10%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    box-shadow: 0px 0px 10px 5px rgb(0, 217, 255);
 }

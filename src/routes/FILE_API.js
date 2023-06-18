@@ -7,4 +7,7 @@ const API_Router=Router();
 API_Router.get('/getFiles', async(req, res)=>{
     res.send(await DAO_DB_Service.getFiles(new File({})));
 })
+API_Router.get('/getFileById/:id', async(req, res)=>{
+    res.send(await DAO_DB_Service.getFiles(new File({id: req.params.id})));
+})
 export default API_Router;
